@@ -27,6 +27,15 @@ public class CustomerController {
 		}
 		return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
 	}
+	//FIND CUSTOMER BY CODE
+	@GetMapping("code/{code}")
+	public ResponseEntity<Customer> getByCustomerCode(@PathVariable String code){
+		var cust = custRepo.findByCode(code);
+			if(cust.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<Customer>(cust.get(), HttpStatus.OK);
+	}
 	
 	@PostMapping
 	public ResponseEntity<Customer> postCustomer(@RequestBody Customer customer){
